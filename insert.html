@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Radio Buttons</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card {
+            cursor: pointer;
+        }
+        .selected {
+            border: 2px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="card-deck">
+        <div class="card" onclick="selectCard(1)">
+            <div class="card-body">
+                <h5 class="card-title">Option 1</h5>
+                <p class="card-text">Description de l'option 1.</p>
+            </div>
+        </div>
+        <div class="card" onclick="selectCard(2)">
+            <div class="card-body">
+                <h5 class="card-title">Option 2</h5>
+                <p class="card-text">Description de l'option 2.</p>
+            </div>
+        </div>
+        <div class="card" onclick="selectCard(3)">
+            <div class="card-body">
+                <h5 class="card-title">Option 3</h5>
+                <p class="card-text">Description de l'option 3.</p>
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="selectedOption" value="0">
+
+    <!-- Bootstrap JS (optionnel si vous n'avez pas besoin de JavaScript) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectCard(option) {
+            // Désélectionner toutes les cartes
+            var cards = document.querySelectorAll('.card');
+            cards.forEach(function(card) {
+                card.classList.remove('selected');
+            });
+
+            // Sélectionner la carte cliquée
+            var selectedCard = document.querySelector('.card:nth-child(' + option + ')');
+            selectedCard.classList.add('selected');
+
+            // Mettre à jour la valeur de l'option sélectionnée
+            document.getElementById('selectedOption').value = option;
+        }
+    </script>
+</body>
+</html>

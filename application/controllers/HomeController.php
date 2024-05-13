@@ -11,7 +11,7 @@ class HomeController extends CI_Controller{
     }
     public function authentification(){
         // session_destroy();
-        if(isset($_SESSION['userdata'])){
+        if(isset($_SESSION['admin'])){
             
         }else{
             redirect('AccountController');

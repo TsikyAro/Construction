@@ -31,10 +31,11 @@ class AccountController extends CI_Controller
         if($valiny != null){
             if($valiny->roles==1){
                 $_SESSION['admin'] = $valiny;
+                redirect('Admin');
             }else{
                 $_SESSION['userdata'] = $valiny;
             }
-            redirect('IndexController');
+            // redirect('IndexController');
         }
         else{
 			$error ="Please check your password or email!";

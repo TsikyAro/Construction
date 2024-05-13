@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$dev_base_url = 'http://localhost/Eval/Construction/';
+$dev_base_url = 'http://localhost/Eval/Construction_clone/';
 $config['base_url'] = $dev_base_url;
 
 /*
