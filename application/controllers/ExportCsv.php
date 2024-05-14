@@ -7,6 +7,7 @@ class ExportCsv extends CI_Controller {
         // $this->load->model('TrajetModel'); // Remplacez "VotreModele" par le nom de votre modèle
         $this->load->helper(array('form', 'url'));
         $this->load->model('InsertCsv');
+        $this->load->model('DevisModel');
     }
 
     public function export_csv() {
@@ -68,6 +69,98 @@ class ExportCsv extends CI_Controller {
             echo 'Error uploading CSV file: ' . $this->upload->display_errors();
         }
     }
+    public function import_csv_detail() {
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $config['max_size']      = 1024; // 1 MB
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('file')) {
+            try{
+                $file_data = $this->upload->data();
+                $file_path = $file_data['full_path'];
+                $this->load->library('csvreader');
+        
+                // Lire le fichier CSV
+                $data = $this->csvreader->parse_file($file_path, true);
+                    foreach ($data as $row) {
+                        $row = array_map('trim', $row);
+                        $this->db->insert('maison_travaux', $row);
+                        $this->DevisModel->disptch_detail();
+                    }
+                    
+                    unlink($file_path);    
+                    echo 'Import CSV successful.';
+                
+            }catch(DataException $exeption){
+
+            }
+        } else {
+            echo 'Error uploading CSV file: ' . $this->upload->display_errors();
+        }
+    }
+    public function import_csv_devis() {
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $config['max_size']      = 1024; // 1 MB
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('file')) {
+            try{
+                $file_data = $this->upload->data();
+                $file_path = $file_data['full_path'];
+                $this->load->library('csvreader');
+        
+                // Lire le fichier CSV
+                $data = $this->csvreader->parse_file($file_path, true);
+                    foreach ($data as $row) {
+                        $row = array_map('trim', $row);
+                        $this->db->insert('devis_temporaire', $row);
+                        $this->DevisModel->disptch_devis();
+                    }
+                    
+                    unlink($file_path);    
+                    echo 'Import CSV successful.';
+                
+            }catch(DataException $exeption){
+
+            }
+        } else {
+            echo 'Error uploading CSV file: ' . $this->upload->display_errors();
+        }
+    }
+    public function import_csv_paiement() {
+        $config['upload_path']   = './uploads/';
+        $config['allowed_types'] = 'csv';
+        $config['max_size']      = 1024; // 1 MB
+        $this->load->library('upload', $config);
+        
+        if ($this->upload->do_upload('file')) {
+            try{
+                $file_data = $this->upload->data();
+                $file_path = $file_data['full_path'];
+                $this->load->library('csvreader');
+        
+                // Lire le fichier CSV
+                $data = $this->csvreader->parse_file($file_path, true);
+                    foreach ($data as $row) {
+                        $row = array_map('trim', $row);
+                        $this->db->insert('paiement_temporaire', $row);
+                        $this->DevisModel->disptch_paiement();
+                    }
+                    
+                    unlink($file_path);    
+                    echo 'Import CSV successful.';
+                
+            }catch(DataException $exeption){
+
+            }
+        } else {
+            echo 'Error uploading CSV file: ' . $this->upload->display_errors();
+        }
+    }
+
+
     
     // public function import_csv_process() {
     //     $config['upload_path']   = './uploads/';

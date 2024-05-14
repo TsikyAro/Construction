@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Travaux</title>
     <!-- Bootstrap CSS -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         /* Ajustements de style supplémentaires */
         body {
@@ -35,7 +35,11 @@
 </head>
 <body>
     <h2>Numero Client: <?= $detail[0]->numeroclient ?></h2>    
-    <h2>Date Devis: <?= $detail[0]->datedevis ?></h2>
+    <?php 
+        $dateObj = new DateTime($detail[0]->datedevis); 
+        $date = $dateObj->format('d F Y') ;
+    ?>
+    <h2>Date Devis: <?= $date?></h2>
     <div class="table-responsive">
         <table class="table table-bordered table-striped" border="1">
             <thead class="table-dark">
@@ -49,9 +53,6 @@
             </thead>
             <tbody>
                 <?php foreach($detail as $row): ?>
-                    <tr>
-                        <td colspan="5"><h1><?= $row->nomtravaux ?></h1></td>
-                    </tr>
                     <?php 
                         $quantites = explode(",", $row->quantites);
                         $designations = explode(",", $row->designations);
@@ -63,14 +64,11 @@
                         <tr>
                             <td><?= $designations[$j] ?></td>
                             <td><?= $nom_unites[$j] ?></td>
-                            <td><?= $quantites[$j] ?></td>
-                            <td><?= $prix_unitaires[$j] ?></td>
-                            <td><?= $prix_totals[$j] ?></td>
+                            <td><?=number_format($quantites[$j],2,'.',' ') ?></td>
+                            <td><?= number_format($prix_unitaires[$j],2,'.',' ')?></td>
+                            <td style="texte-align:left"><?= number_format($prix_totals[$j],2,'.',' ') ?></td>
                         </tr>
                     <?php endfor; ?>
-                    <tr>
-                        <td colspan="5"><h1>Total:<?= $row->nomtravaux ?></h1></td>
-                    </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>

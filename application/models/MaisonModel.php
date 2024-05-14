@@ -27,5 +27,23 @@
             $data =  $query->result();
             return $data;
         }
+        public function update_data_detail($data, $where) {
+            $this->db->where('iddetail', $where);
+            $this->db->update('detail_travaux', $data);
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        public function delete_data_detail($id) {
+            $this->db->where('iddetail', $id);
+            $this->db->delete('detail_travaux');
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 ?>

@@ -55,18 +55,29 @@ class DevisController extends ClientController
         $this->PayementModel->insert_Payement($data);
         redirect('DevisController/choix_Payement');
 	}
-    public function update(){
+    public function update() {
         $date = $_POST['date'];
         $montant = $_POST['montant'];
-        $idpayement = $_POST['idpayement'];
-        $data = array(
-            'datepayement' => $date,
-            'montant'=>$montant,
-            'etat' => 20
-        );
-        $this->PayementModel->update_data($data,$idpayement);
-        redirect('DevisController/choix_Payement');
-	}
+        $idevis = $_POST['idevis'];
+        $montant_apayer = $_POST['montant_apayer'];
+        $montant_ecart = $montant_apayer - $montant;
+        
+        if ($montant_ecart < 0) {
+            $response = array('error' => 'Be loatra ilay vola nalohanao.');
+        } else {
+            $data = array(
+                'datepayement' => $date,
+                'montant' => $montant,
+                'etat' => 20
+            );
+            $this->PayementModel->insert_Payement($data);
+            $response = array('success' => 'Données validées avec succès.');
+        }
+    
+        // Renvoyer la réponse JSON
+        return $this->output->set_content_type('application/json')->set_output(json_encode($response));
+    }
+    
     public function insertionDevis(){
         $maison = $_POST['maison'];
         $durre = $this->MaisonModel->get_Maison_Where($maison);
@@ -77,7 +88,7 @@ class DevisController extends ClientController
         $date = strtotime("+".intval($duree)."day", $date);
         $date = date('Y-m-d', $date);
         $datefin = $date;
-        $datedevis = date('Y-m-d');
+        $datedevis =  date('Y-m-d');
         $data = array(
             'idclient'=>$_SESSION['client']->idclient,
             'idfinition'=>$finition,

@@ -1,6 +1,10 @@
 
 <main id="main" class="main">
   <section class="section" id="section" >
+  <form action="<?= base_url("index.php/ExportCsv/import_csv_")?>" method="post"  enctype="multipart/form-data">
+          <input type="file" name="file" id=""  accept=".csv"> 
+          <input type="submit" value="Valider">
+        </form>
     <div class="row">
       <div class="col-lg-12">
           <div class="card">

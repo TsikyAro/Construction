@@ -9,10 +9,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         <?php }?>
-          <div class="card">
+          <!-- <div class="card">
             <div class="card-body">
               <h5 class="card-title">Insertion Travaux</h5>
-              <!-- General Form Elements -->
               <form action="<?= base_url('index.php/Admin/insertionTravaux')?>" method="post">
                 <div class="row mb-3">
                   <label for="inputText" >Designation</label>
@@ -57,64 +56,49 @@
                 </div>
 
               </form>
-              <!-- End General Form Elements -->
 
             </div>
-          </div>
+          </div> -->
           <div class="card">
                   <div class="card-body">
-                      <h5 class="card-title">Liste Marque</h5>
+                      <h5 class="card-title">Liste Finition</h5>
                     <!-- Start Table -->
                       <table class="table table-hover">
                         <thead>
                           <tr>
                             <th scope="col">
                               <input type="checkbox" name="id" id="">
-                              Code
+                              Nom Finition
                             </th>
                             <th scope="col">
                               <input type="checkbox" name="marque" id="">
-                                Designation
-                            </th>
-                            <th scope="col">
-                              <input type="checkbox" name="action" id="">
-                                Quantite
-                            </th>
-                            <th scope="col">
-                              <input type="checkbox" name="action" id="">
-                              Prix Unitaire
+                                Pourcentage
                             </th>
                           </tr>
                         </thead>
                         <tbody>
-                          <?php if(isset($detail_travaux)){?>
-                            <?php for($i = 0; $i<count($detail_travaux);$i++){?>
+                          <?php if(isset($finition)){?>
+                            <?php for($i = 0; $i<count($finition);$i++){?>
                                 <tr>
-                                  <td><?= $detail_travaux[$i]->code?></td>
-                                  <td><?= $detail_travaux[$i]->designation?></td>
-                                  <td><?= number_format($detail_travaux[$i]->quantite,2,'.','')?></td>
-                                  <td><?= number_format($detail_travaux[$i]->prix_unitaire,2,'.','')?></td>
+                                  <td><?= $finition[$i]->nomfinition?></td>
+                                  <td><?= number_format($finition[$i]->pourcentage,2,'.','')?>%</td>
                                   <td> 
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered<?=$detail_travaux[$i]->iddetail?>">
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentered<?=$finition[$i]->idfinition?>">
                                       <i class="bi bi-pen-fill"></i>
                                     </button>
                                     <!-- Modifier -->
-                                        <div class="modal fade" id="verticalycentered<?=$detail_travaux[$i]->iddetail?>" tabindex="-1">
+                                        <div class="modal fade" id="verticalycentered<?=$finition[$i]->idfinition?>" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
                                                     <h5 class="modal-title">Modifier</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                                <form id="modalForm" action="<?= base_url('index.php/Admin/update')?>" method="post">
+                                                <form id="modalForm" action="<?= base_url('index.php/Admin/update_finition')?>" method="post">
                                                     <div class="modal-body">
-                                                      <label for="">Quantite</label>
-                                                        <input type="text" name="quantite" id="nomMarque" class="form-control" value="<?=$detail_travaux[$i]->quantite?>">
-                                                        <input type="hidden" name="iddetail" id="iddetail" value="<?=$detail_travaux[$i]->iddetail?>">
-                                                    </div>
-                                                    <div class="modal-body">
-                                                      <label for="">Prix Unitaire</label>
-                                                        <input type="text" name="prix_unitaire" id="nomMarque" class="form-control" value="<?=$detail_travaux[$i]->prix_unitaire?>">
+                                                      <label for="">Pourcentage</label>
+                                                        <input type="text" name="pourcentage" id="nomMarque" class="form-control" value="<?=$finition[$i]->pourcentage?>">
+                                                        <input type="hidden" name="idfinition" id="idfinition" value="<?=$finition[$i]->idfinition?>">
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
@@ -125,18 +109,18 @@
                                         </div>
                                         </div>
                                         <!-- End Modifier -->
-                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentereds<?=$detail_travaux[$i]->iddetail?>">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#verticalycentereds<?=$finition[$i]->idfinition?>">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                         </td>
                                     <!-- Suprimer -->
-                                    <div class="modal fade" id="verticalycentereds<?=$detail_travaux[$i]->iddetail?>" tabindex="-1">
+                                    <div class="modal fade" id="verticalycentereds<?=$finition[$i]->idfinition?>" tabindex="-1">
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
-                                                <center><h2 style="color:red; margin-top:35px">Vous etes sur de suprimer <?=$detail_travaux[$i]->designation ?>?</h2></center>
-                                                <form id="modalForm" action="<?= base_url('index.php/Admin/delete')?>" method="post">
+                                                <center><h2 style="color:red; margin-top:35px">Vous etes sur de suprimer <?=$finition[$i]->nomfinition ?>?</h2></center>
+                                                <form id="modalForm" action="<?= base_url('index.php/Admin/delete_finition')?>" method="post">
                                                     <div class="modal-body">
-                                                        <input type="hidden" name="iddetail" id="iddetail" value="<?=$detail_travaux[$i]->iddetail?>">
+                                                        <input type="hidden" name="idfinition" id="idfinition" value="<?=$finition[$i]->idfinition?>">
                                                     </div>
                                                     <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>

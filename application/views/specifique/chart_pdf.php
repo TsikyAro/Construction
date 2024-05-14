@@ -77,3 +77,63 @@ $data = [
     </section>
     <button onclick="exportToPDF()">Exporter en PDF</button>
 </main>
+
+
+
+
+
+<h1>Le chart Graphique</h1>
+      
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Line Chart</h5>
+
+              <!-- Line Chart -->
+              <canvas id="lineChart" style="max-height: 400px;"></canvas>
+              <script>
+              document.addEventListener("DOMContentLoaded", () => {
+                  var labels = [];
+                  var values = [];
+                  <?php foreach ($data as $item): ?>
+                      labels.push("<?php echo $item->label; ?>");
+                      values.push(<?php echo $item->value; ?>);
+                  <?php endforeach; ?>
+
+                  // Utilisez les tableaux JS pour créer le graphique
+                  new Chart(document.querySelector('#lineChart'), {
+                      type: 'bar',
+                      data: {
+                          labels: labels,
+                          datasets: [{
+                              label: 'Line Chart',
+                              data: values,
+                              fill: false,
+                              borderColor: 'rgb(75, 192, 192)',
+                              backgroundColor: [
+                              'rgba(255, 99, 132, 0.2)'],
+                              tension: 0.1
+                          }]
+                      },
+                      options: {
+                          scales: {
+                              y: {
+                                  beginAtZero: true
+                              }
+                          }
+                      }
+                  });
+              });
+
+                function exportToPDF() {
+                    const content = document.getElementById('section');
+                    html2pdf(content);
+                }
+              </script>
+              <!-- End Line CHart -->
+            </div>
+          </div>
+        </div>
+      </div>

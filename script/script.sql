@@ -86,3 +86,33 @@ CREATE TABLE Devis_Historique(
     idmaison        int references maison (idmaison),
     datemodification    date
 );
+
+create table mois(
+    mois    serial primary key,
+    libele  varchar(20)
+);
+INSERT INTO mois (libele) VALUES 
+('Janvier'),
+ ('Fevrier'),
+ ('Mars'),
+ ('Avril'),
+ ('Mai'),
+ ('Juin'),
+ ('Juillet'),
+ ('Aout'),
+ ('Septembre'),
+ ('Octobre'),
+ ('Novembre'),
+ ('Decembre');
+
+ALTER TABLE  devis
+ADD ref_devis varchar(10) unique,
+ADD  lieu varchar(50);
+-- description, surface,
+ALTER TABLE  maison
+ADD description varchar(50),
+ADD  surface    DECIMAL(20,2);
+
+ALTER TABLE  payement
+ADD ref_paiement varchar(50) unique;
+

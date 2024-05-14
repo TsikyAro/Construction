@@ -12,7 +12,7 @@
             return $query->result();
         }
         public function update_data($data, $where) {
-            $this->db->where('idpayement', $where);
+            $this->db->where('iddevis', $where);
             $this->db->update('payement', $data);
             if ($this->db->affected_rows() > 0) {
                 return true;
@@ -23,9 +23,11 @@
         public function methode($devis){
            if($devis == 0){
              $resultat = 'Payer en Totalite';
-           }else{
-            $resultat ='Payer en Partiel';
-           }
+           }else if($devis==null){
+                $resultat = 'Choisissez votre Mode de Payement';
+            }else{
+                $resultat ='Payer en Partiel';
+            }
            return $resultat;
         }
         public function etat($devis){

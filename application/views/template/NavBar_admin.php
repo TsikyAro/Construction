@@ -22,6 +22,16 @@
           <i class="bi bi-circle"></i><span>Devis en Cours</span>
         </a>
       </li>
+      <li>
+        <a href="<?= base_url('index.php/Admin/finition')?>">
+          <i class="bi bi-circle"></i><span>Voir Finition </span>
+        </a>
+      </li>
+      <li>
+        <a href="<?= base_url('index.php/Admin/import')?>">
+          <i class="bi bi-circle"></i><span>import </span>
+        </a>
+      </li>
     </ul>
   </li>
 </ul>

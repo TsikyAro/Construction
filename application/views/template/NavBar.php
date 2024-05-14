@@ -2,7 +2,7 @@
 
 <ul class="sidebar-nav" id="sidebar-nav">
   <li class="nav-item">
-    <a class="nav-link " href="<?= base_url("index.php/IndexController")?>">
+    <a class="nav-link " href="<?= base_url("index.php/ClientController/home")?>">
       <i class="bi bi-grid"></i>
       <span>Tous les Devis</span>
     </a>

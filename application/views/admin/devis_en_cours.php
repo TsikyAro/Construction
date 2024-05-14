@@ -34,6 +34,14 @@
                                 <a href="#">DESC</a>
                               </p>
                             </th>
+                            <th scope="col">
+                              <input type="checkbox" name="action" id="">
+                              Pourcentage Reste a Payer
+                              <p>
+                                <a href="#">ASC</a>
+                                <a href="#">DESC</a>
+                              </p>
+                            </th>
                             <th>
                             </th>
                           </tr>
@@ -43,9 +51,10 @@
                             <?php for($i = 0; $i<count($devis);$i++){?>
                                 <tr>
                                   <td>DEVISE00<?= $devis[$i]->iddevis?></td>
-                                  <td><?= $devis[$i]->somme_total?></td>
+                                  <td><?= number_format($devis[$i]->somme_total,2,'.',' ')?></td>
                                   <?php $effectuer = $devis[$i]->somme_total- $devis[$i]->reste_payer?>
                                   <td><?= $effectuer?></td>
+                                  <td><?= number_format($devis[$i]->pourcentage,2,'.',' ')?>%(<?= $devis[$i]->pourcentage?>%)</td>
                                   <td><p><a href="<?= base_url('index.php/ClientController/exportpdf')?>?iddevis=<?= $devis[$i]->iddevis?>">Exporter Pdf</a></p></td>
                                 </tr>
                             <?php }?>
